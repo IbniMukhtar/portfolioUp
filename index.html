@@ -90,8 +90,7 @@
                             <div class="col-md-6 col-lg-6 d-flex">
                                 <div class="img-about img d-flex align-items-stretch">
                                     <div class="overlay"></div>
-                                    <div class="img d-flex align-self-stretch align-items-center" style="background-image:url(Images/myImg1.jpeg);">
-                                    </div>
+                                    <img src="Images/myImg1.jpeg" class="img d-flex align-items-center" style="padding: 80px; width: 80%; height: 500px;">
                                 </div>
                             </div>
                             <div class="col-md-6 col-lg-6 pl-md-5 py-5">
@@ -176,9 +175,9 @@
                                     <div class="text pl-3">
                                         <span class="date">2014-2015</span>
                                         <div class="progress">
-                                            <div class="progress-bar bg-success" role="progressbar" style="width: 88%;" aria-valuenow="88" aria-valuemin="0" aria-valuemax="100">
-                                                <span class="sr-only"> percentage:88% </span>
-                                                <span class="progress-text" style="color:blue;">CGPA  <strong>8.8</strong></span>
+                                            <div class="progress-bar bg-success" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                                                <span class="sr-only">percentage:0%</span>
+                                                <span class="progress-text" style="color:blue;">CGPA <strong>8.8</strong></span>
                                             </div>
                                         </div>
                                         <h2>Master of Science in Information Technology</h2>
@@ -824,7 +823,26 @@
              // Remove the link from the body
              document.body.removeChild(link);
     });
-    
+    function animateProgressBar(element, targetWidth, duration) {
+    const progressBar = document.querySelector(element);
+    const initialWidth = parseInt(progressBar.style.width);
+    const increment = targetWidth / (duration / 16); // 16ms is roughly 1 frame in 60fps
+
+    let currentWidth = initialWidth;
+
+    const animationInterval = setInterval(() => {
+        currentWidth += increment;
+        progressBar.style.width = `${currentWidth}%`;
+        progressBar.setAttribute('aria-valuenow', currentWidth.toFixed(2));
+
+        if (currentWidth >= targetWidth) {
+            clearInterval(animationInterval);
+        }
+    }, 16); // Run every frame
+}
+
+animateProgressBar('.progress-bar', 88, 3000); // animate to 88% over 3000ms (3 seconds)
+
 </script>
 
 </body>
